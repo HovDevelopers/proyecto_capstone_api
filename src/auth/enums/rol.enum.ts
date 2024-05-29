@@ -1,0 +1,7 @@
+export enum Rol{
+    ADMIN = 1,
+    JEFE_PSIQUIATRIA = 2,
+    JEFE_ESTADISTICA = 3,
+    PERSONAL_PSIQUIATRIA = 4,
+    PERSONAL_ESTADISTICA = 5
+}
