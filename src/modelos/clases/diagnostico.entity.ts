@@ -9,9 +9,6 @@ export class Diagnostico {
   @Column({ type: 'text'})
   nombre: string;
 
-  @Column({ nullable: true })
-  codigo: number;
-
   @Column({ type: 'boolean'})
   bool_GES: boolean;
 }

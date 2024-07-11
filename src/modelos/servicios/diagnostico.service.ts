@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Diagnostico } from 'src/modelos/clases/diagnostico.entity';
-import { actualizarDiagnostico } from '../interfaces/diagnostico';
-import { crearDiagnostico } from '../interfaces/diagnostico';
+import { actualizarDiagnostico } from '../interfaces/diagnostico.interface';
+import { crearDiagnostico } from '../interfaces/diagnostico.interface';
 import { Repository } from 'typeorm';
 
 @Injectable()

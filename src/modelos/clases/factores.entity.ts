@@ -9,6 +9,5 @@ export class Factores {
   @Column({ type: 'text' })
   nombre: string;
 
-  @Column({ nullable: true })
-  codigo: number;
+  
 }

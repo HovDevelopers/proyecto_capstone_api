@@ -1,8 +1,7 @@
 import { Body, Controller, Param, Patch, Post, Get, Delete } from '@nestjs/common';
 import { ActividadService } from '../modelos/servicios/actividad.service';
 import { Actividad } from 'src/modelos/clases/actividad.entity';
-import { crearNombreCodigo } from '../modelos/interfaces/nombreCodigo';
-import { actualizarNombreCodigo } from '../modelos/interfaces/nombreCodigo';
+import { nombre } from '../modelos/interfaces/nombre.interface';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Actividad')
@@ -12,8 +11,8 @@ export class ActividadController {
     constructor(private readonly actividadService: ActividadService) {}
 
     @Post()
-    async crearActividad(@Body() crearActividadDto: crearNombreCodigo): Promise<Actividad> {
-        return await this.actividadService.crearActividad(crearActividadDto);
+    async crearActividad(@Body() crearActividad: nombre): Promise<Actividad> {
+        return await this.actividadService.crearActividad(crearActividad);
     }
 
     @Get()
@@ -27,8 +26,8 @@ export class ActividadController {
     }
 
     @Patch(':id')
-    async actualizar(@Param('id') id: number, @Body() actualizarActividadDto: actualizarNombreCodigo): Promise<Actividad> {
-        return await this.actividadService.actualizar(id, actualizarActividadDto);
+    async actualizar(@Param('id') id: number, @Body() actualizarActividad: nombre): Promise<Actividad> {
+        return await this.actividadService.actualizar(id, actualizarActividad);
     }
 
     @Delete(':id')

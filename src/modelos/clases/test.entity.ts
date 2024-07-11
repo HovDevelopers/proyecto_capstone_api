@@ -9,6 +9,5 @@ export class Test {
   @Column({ type: 'text' })
   nombre: string;
 
-  @Column({ nullable: true })
-  codigo: number;
+  
 }

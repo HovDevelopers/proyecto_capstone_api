@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Delete, Param, Body, Patch } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Param, Body, Patch, Req } from '@nestjs/common';
 import { ComisionIngresoProfesionalService } from '../modelos/servicios/comision_ingreso_profesional.service';
 import { ComisionIngresoProfesional } from 'src/modelos/clases/comision_ingreso_profesional.entity';
-import { crearComisionIngresoProfesional } from '../modelos/interfaces/ComisionIngresoProfesional';
-import { actualizarComisionIngresoProfesional } from '../modelos/interfaces/ComisionIngresoProfesional';
+import { crearComisionIngresoProfesional } from '../modelos/interfaces/comisionIngresoProfesional.interface';
+import { actualizarComisionIngresoProfesional } from '../modelos/interfaces/comisionIngresoProfesional.interface';
 import { ApiTags } from '@nestjs/swagger';
+import { ComisionIngreso } from 'src/modelos/clases/comision_ingreso.entity';
 
 @ApiTags('Comision Ingreso Profesional')
 @Controller('comision_ingreso_profesional')
@@ -11,8 +12,8 @@ export class ComisionIngresoProfesionalController {
     constructor(private readonly comisionIngresoProfesionalService: ComisionIngresoProfesionalService) {}
 
     @Post()
-    async crearComisionIngresoProfesional(@Body() comisionIngresoProfesional: crearComisionIngresoProfesional): Promise<ComisionIngresoProfesional> {
-        return await this.comisionIngresoProfesionalService.crearComisionIngresoProfesional(comisionIngresoProfesional);
+    async crearComisionIngresoProfesional(@Body() comisionIngresoProfesional: crearComisionIngresoProfesional, @Req() req: any): Promise<ComisionIngresoProfesional> {
+        return await this.comisionIngresoProfesionalService.crearComisionIngresoProfesional(comisionIngresoProfesional, req);
     }
 
     @Get()
@@ -21,7 +22,7 @@ export class ComisionIngresoProfesionalController {
     }
 
     @Get('informes/:id')
-    async obtenerInformesPorProfesional(@Param('id') id: number): Promise<ComisionIngresoProfesional[] | undefined> {
+    async obtenerInformesPorProfesional(@Param('id') id: number): Promise<ComisionIngreso[] | undefined> {
         return this.comisionIngresoProfesionalService.obtenerInformesPorProfesional(id);
     }
 

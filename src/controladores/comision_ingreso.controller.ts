@@ -1,8 +1,8 @@
-import { Controller, Get, Post, Delete, Param, Body, Patch } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Param, Body, Patch, Req } from '@nestjs/common';
 import { ComisionIngresoService } from '../modelos/servicios/comision_ingreso.service';
 import { ComisionIngreso } from 'src/modelos/clases/comision_ingreso.entity';
-import { crearComisionIngreso } from '../modelos/interfaces/ComisionIngreso';
-import { actualizarComisionIngreso } from '../modelos/interfaces/ComisionIngreso';
+import { crearComisionIngreso } from '../modelos/interfaces/comisionIngreso.interface';
+import { actualizarComisionIngreso } from '../modelos/interfaces/comisionIngreso.interface';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Comision Ingreso')
@@ -11,8 +11,8 @@ export class ComisionIngresoController {
     constructor(private readonly comisionIngresoService: ComisionIngresoService) {}
 
     @Post()
-    async crearComisionIngreso(@Body() comisionIngreso: crearComisionIngreso): Promise<ComisionIngreso> {
-        return await this.comisionIngresoService.crearComisionIngreso(comisionIngreso);
+    async crearComisionIngreso(@Body() comisionIngreso: crearComisionIngreso, @Req() req: any): Promise<ComisionIngreso> {
+        return await this.comisionIngresoService.crearComisionIngreso(comisionIngreso, req);
     }
 
     @Get()

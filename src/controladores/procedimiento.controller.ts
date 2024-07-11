@@ -1,8 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { Procedimiento } from 'src/modelos/clases/procedimiento.entity';
 import { ProcedimientoService } from '../modelos/servicios/procedimiento.service';
-import { crearNombreCodigo } from '../modelos/interfaces/nombreCodigo';
-import { actualizarNombreCodigo } from '../modelos/interfaces/nombreCodigo';
+import { nombre } from '../modelos/interfaces/nombre.interface';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Procedimiento')
@@ -12,8 +11,8 @@ export class ProcedimientoController {
     constructor(private readonly procedimientoService: ProcedimientoService) {}
 
     @Post()
-    async crearProcedimiento(@Body() crearProcedimientoDto: crearNombreCodigo): Promise<Procedimiento> {
-        return await this.procedimientoService.crearProcedimiento(crearProcedimientoDto);
+    async crearProcedimiento(@Body() crearProcedimiento: nombre): Promise<Procedimiento> {
+        return await this.procedimientoService.crearProcedimiento(crearProcedimiento);
     }
 
     @Get()
@@ -27,8 +26,8 @@ export class ProcedimientoController {
     }
 
     @Patch(':id')
-    async actualizar(@Param('id') id: number, @Body() actualizarProcedimientoDto: actualizarNombreCodigo): Promise<Procedimiento> {
-        return await this.procedimientoService.actualizar(id, actualizarProcedimientoDto);
+    async actualizar(@Param('id') id: number, @Body() actualizarProcedimiento: nombre): Promise<Procedimiento> {
+        return await this.procedimientoService.actualizar(id, actualizarProcedimiento);
     }
 
     @Delete(':id')

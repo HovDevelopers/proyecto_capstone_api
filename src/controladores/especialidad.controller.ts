@@ -1,8 +1,7 @@
 import { Controller, Get, Post, Param, Body, Delete, Patch } from '@nestjs/common';
 import { Especialidad } from 'src/modelos/clases/especialidad.entity';
 import { EspecialidadService } from '../modelos/servicios/especialidad.service';
-import { crearNombre } from '../modelos/interfaces/nombre';
-import { actualizarNombre } from '../modelos/interfaces/nombre';
+import { nombre } from '../modelos/interfaces/nombre.interface';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Especialidad')
@@ -12,7 +11,7 @@ export class EspecialidadController {
     constructor(private readonly especialidadService: EspecialidadService) {}
 
     @Post()
-    async crearEspecialidad(@Body() especialidad: crearNombre) {
+    async crearEspecialidad(@Body() especialidad: nombre) {
         return this.especialidadService.crearEspecialidad(especialidad);
     }
 
@@ -27,7 +26,7 @@ export class EspecialidadController {
     }
 
     @Patch(':id')
-    async actualizar(@Param('id') id: number, @Body() actualizarEspecialidad: actualizarNombre) {
+    async actualizar(@Param('id') id: number, @Body() actualizarEspecialidad: nombre) {
         return this.especialidadService.actualizar(id, actualizarEspecialidad);
     }
 

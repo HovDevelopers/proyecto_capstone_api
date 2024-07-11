@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { crearNombreCodigo } from '../interfaces/nombreCodigo';
-import { actualizarNombreCodigo } from '../interfaces/nombreCodigo';
+import { nombre } from '../interfaces/nombre.interface';
 import { Factores } from 'src/modelos/clases/factores.entity';
 import { Repository } from 'typeorm';
 
@@ -10,7 +9,7 @@ export class FactoresService {
 
     constructor(@InjectRepository(Factores) private repoFactores: Repository<Factores>){}
 
-    async crearFactores(nombreFactores: crearNombreCodigo){
+    async crearFactores(nombreFactores: nombre){
         const FactoresNueva = this.repoFactores.create(nombreFactores);
         return await this.repoFactores.save(FactoresNueva);
     }
@@ -23,7 +22,7 @@ export class FactoresService {
         return await this.repoFactores.findOne({ where: { id_factor: id }});
     }
 
-    async actualizar(id: number, actualizarFactores: actualizarNombreCodigo): Promise<Factores> {
+    async actualizar(id: number, actualizarFactores: nombre): Promise<Factores> {
         const factores = await this.repoFactores.findOne({ where: { id_factor: id } });
         if (!factores) {
             return null;

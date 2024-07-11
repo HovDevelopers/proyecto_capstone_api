@@ -1,31 +1,47 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { actualizarUrgencia } from 'src/modelos/interfaces/Urgencia';
-import { crearUrgencia } from 'src/modelos/interfaces/Urgencia';
+import { actualizarUrgencia } from '../interfaces/urgencia.interface';
+import { crearUrgencia } from '../interfaces/urgencia.interface';
 import { Urgencia } from 'src/modelos/clases/urgencia.entity';
 import { Repository } from 'typeorm';
+import { LogActividadService } from './log_actividad.service';
+import { PacienteService } from './paciente.service';
 
 @Injectable()
 export class UrgenciaService {
 
-    constructor(@InjectRepository(Urgencia) private repoUrgencia: Repository<Urgencia>){}
+    constructor(@InjectRepository(Urgencia) private repoUrgencia: Repository<Urgencia>,
+    private readonly logActividadService: LogActividadService,
+    private pacienteService: PacienteService){}
 
-    crearUrgencia(urgencia: crearUrgencia){
-        const urgenciaNuevo = this.repoUrgencia.create(urgencia);
-        return this.repoUrgencia.save(urgenciaNuevo);
+    async crearUrgencia(urgencia: crearUrgencia, req: any){
+
+        const idPacienteAud = await this.pacienteService.crearVersionPaciente(urgencia.id_paciente, req);
+        const urgenciaNuevo = this.repoUrgencia.create({
+            ...urgencia,
+            id_paciente_auditoria: idPacienteAud // Asigna el id del paciente auditoría aquí
+        });
+
+        await this.logActividadService.insertarActividad(
+            req,
+            'Inserción Urgencia',
+            urgencia
+        );
+        
+        return await this.repoUrgencia.save(urgenciaNuevo);
     }
 
     async buscarTodo(): Promise<Urgencia[]> {
-        return await this.repoUrgencia.find({ relations: ['id_paciente', 'id_dispositivo', 'id_procedencia',
-                                            'id_actividad', 'id_tipo_paciente', 'id_procedimiento', 
-                                            'id_factor', 'id_test', 'id_estado_informe'] });
+        return await this.repoUrgencia.find({ relations: ['id_paciente_auditoria', 'id_dispositivo', 'id_procedencia',
+                                            'id_actividad', 'id_tipo_paciente', 'id_factor', 
+                                            'id_estado_informe', 'diagnostico_principal'] });
     }
 
     async getUrgenciaById(id: number): Promise<Urgencia | undefined> {
-        return await this.repoUrgencia.findOne({ where: { id_urgencia: id }, relations: ['id_paciente', 
-                                                'id_dispositivo', 'id_procedencia','id_actividad',
-                                                'id_tipo_paciente', 'id_procedimiento', 
-                                                'id_factor', 'id_test', 'id_estado_informe'] });
+        return await this.repoUrgencia.findOne({ where: { id_urgencia: id }, relations: ['id_paciente_auditoria', 
+                                                'id_dispositivo', 'id_procedencia', 'id_actividad', 
+                                                'id_tipo_paciente', 'id_factor', 'id_estado_informe',
+                                                'diagnostico_principal']});
     }
 
     async actualizar(id: number, actualizarUrgencia: actualizarUrgencia): Promise<Urgencia> {

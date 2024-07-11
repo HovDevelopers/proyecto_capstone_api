@@ -1,7 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { InformeDiario } from 'src/modelos/clases/informe_diario.entity';
 import { Profesional } from 'src/modelos/clases/profesional.entity';
-import { Especialidad } from './especialidad.entity';
 
 @Entity('informe_diario_profesional')
 export class InformeDiarioProfesional {

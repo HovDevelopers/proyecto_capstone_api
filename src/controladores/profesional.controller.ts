@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, Request, Param, Patch, Post, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Req } from '@nestjs/common';
 import { ProfesionalService } from '../modelos/servicios/profesional.service';
-import { crearProfesional } from '../modelos/interfaces/profesional';
-import { actualizarProfesional } from '../modelos/interfaces/profesional';
+import { crearProfesional } from '../modelos/interfaces/profesional.interface';
+import { actualizarProfesional } from '../modelos/interfaces/profesional.interface';
 import { Profesional } from 'src/modelos/clases/profesional.entity';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -12,8 +12,8 @@ export class ProfesionalController {
     constructor(private profesionalService: ProfesionalService){}
 
     @Post()
-    async crearProfesional(@Body() profesional: crearProfesional) {
-        return this.profesionalService.crearUsuario(profesional);
+    async crearProfesional(@Body() profesional: crearProfesional, @Req() req: any) {
+        return this.profesionalService.crearProfesional(profesional, req);
     }
 
     @Get()
@@ -21,17 +21,7 @@ export class ProfesionalController {
         return this.profesionalService.buscarTodo();
     }
 
-    @Get('jwt')
-    async getProfesionalNombre(@Request() req) {
-        const authHeader = req.headers['authorization'];
-        if (!authHeader) {
-            throw new UnauthorizedException('Token no proporcionado');
-        }
-        const token = authHeader.split(' ')[1];
-        return this.profesionalService.getProfesionalNombre(token);
-    }
-
-    @Get(':id')
+    @Get(':id')  
     async getProfesionalById(@Param('id') id: number) {
         return this.profesionalService.getProfesionalById(id);
     }
@@ -42,8 +32,8 @@ export class ProfesionalController {
     }
 
     @Patch(':id')
-    async actualizar(@Param('id') id: number, @Body() actualizarProfesional: actualizarProfesional) {
-        return this.profesionalService.actualizar(id, actualizarProfesional);
+    async actualizar(@Param('id') id: number, @Body() actualizarProfesional: actualizarProfesional, @Req() req: any) {
+        return this.profesionalService.actualizar(id, actualizarProfesional, req);
     }
 
     @Delete(':id')

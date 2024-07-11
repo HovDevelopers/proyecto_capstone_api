@@ -1,17 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { crearNombre } from '../interfaces/nombre';
-import { actualizarNombre } from '../interfaces/nombre';
+import { nombre } from '../interfaces/nombre.interface';
 import { Rol } from 'src/modelos/clases/rol.entity';
 import { Repository } from 'typeorm';
+import { LogActividadService } from './log_actividad.service';
 
 @Injectable()
 export class RolService {
 
-    constructor(@InjectRepository(Rol) private repoRol: Repository<Rol>){}
+    constructor(@InjectRepository(Rol) private repoRol: Repository<Rol>,
+    private readonly logActividadService: LogActividadService,){}
 
-    async crearRol(nombreRol: crearNombre){
+    async crearRol(nombreRol: nombre, req: any){
         const RolNueva = this.repoRol.create(nombreRol);
+        await this.logActividadService.insertarActividad(
+            req,
+            'Inserción Rol',
+            nombreRol
+        );
         return await this.repoRol.save(RolNueva);
     }
 
@@ -23,7 +29,7 @@ export class RolService {
         return await this.repoRol.findOne({ where: { id_rol: id }});
     }
 
-    async actualizar(id: number, actualizarRol: actualizarNombre): Promise<Rol> {
+    async actualizar(id: number, actualizarRol: nombre): Promise<Rol> {
         const rol = await this.repoRol.findOne({ where: { id_rol: id } });
         if (!rol) {
             return null;

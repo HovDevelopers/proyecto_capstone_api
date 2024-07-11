@@ -1,8 +1,7 @@
 import { Controller, Delete, Patch, Post, Get, Body, Param} from '@nestjs/common';
 import { EstadoInformeService } from '../modelos/servicios/estado_informe.service';
 import { EstadoInforme } from 'src/modelos/clases/estado_informe.entity';
-import { crearNombre } from '../modelos/interfaces/nombre';
-import { actualizarNombre } from '../modelos/interfaces/nombre';
+import { nombre } from '../modelos/interfaces/nombre.interface';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Estado Informe')
@@ -12,8 +11,8 @@ export class EstadoInformeController {
     constructor(private readonly estadoInformeService: EstadoInformeService) {}
 
     @Post()
-    async crearEstadoInforme(@Body() crearEstadoInformeDto: crearNombre): Promise<EstadoInforme> {
-        return await this.estadoInformeService.crearEstadoInforme(crearEstadoInformeDto);
+    async crearEstadoInforme(@Body() crearEstadoInforme: nombre): Promise<EstadoInforme> {
+        return await this.estadoInformeService.crearEstadoInforme(crearEstadoInforme);
     }
 
     @Get()
@@ -27,8 +26,8 @@ export class EstadoInformeController {
     }
 
     @Patch(':id')
-    async actualizar(@Param('id') id: number, @Body() actualizarEstadoInformeDto: actualizarNombre): Promise<EstadoInforme> {
-        return await this.estadoInformeService.actualizar(id, actualizarEstadoInformeDto);
+    async actualizar(@Param('id') id: number, @Body() actualizarEstadoInforme: nombre): Promise<EstadoInforme> {
+        return await this.estadoInformeService.actualizar(id, actualizarEstadoInforme);
     }
 
     @Delete(':id')

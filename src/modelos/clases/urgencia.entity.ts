@@ -1,35 +1,37 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
-import { Paciente } from './paciente.entity';
 import { EstadoInforme } from './estado_informe.entity';
 import { Dispositivo } from 'src/modelos/clases/dispositivo.entity';
 import { ProcedenciaConsulta } from 'src/modelos/clases/procedencia_consulta.entity';
 import { Actividad } from 'src/modelos/clases/actividad.entity';
 import { TipoPaciente } from 'src/modelos/clases/tipo_paciente..entity';
-import { Procedimiento } from 'src/modelos/clases/procedimiento.entity';
 import { Factores } from 'src/modelos/clases/factores.entity';
-import { Test } from 'src/modelos/clases/test.entity';
+import { Diagnostico } from './diagnostico.entity';
+import { PacienteAuditoria } from './paciente_auditoria.entity';
 
 @Entity('urgencia')
 export class Urgencia {
   @PrimaryGeneratedColumn()
   id_urgencia: number;
 
-  @ManyToOne(() => Paciente, paciente => paciente.id_paciente)
-  @JoinColumn({ name: 'id_paciente' })
-  id_paciente: Paciente;
+  @ManyToOne(() => PacienteAuditoria, paciente => paciente.id_paciente_auditoria)
+  @JoinColumn({ name: 'id_paciente_auditoria' })
+  id_paciente_auditoria: PacienteAuditoria;
 
   @Column({ type: 'bit' })
   en_turno: boolean;
 
-  @Column({ type: 'date' })
+  @Column({ type: 'timestamp' })
   fecha_envio: Date;
+
+  @Column({ type: 'date' })
+  fecha_consulta: Date;
 
   @ManyToOne(() => Dispositivo, dispositivo => dispositivo.id_dispositivo)
   @JoinColumn({ name: 'id_dispositivo' })
   id_dispositivo: Dispositivo;
 
   @ManyToOne(() => ProcedenciaConsulta, procedenciaConsulta => procedenciaConsulta.id_procedencia_consulta)
-  @JoinColumn({ name: 'id_procedencia' })
+  @JoinColumn({ name: 'id_procedencia_consulta' })
   id_procedencia: ProcedenciaConsulta;
 
   @ManyToOne(() => Actividad, actividad => actividad.id_actividad)
@@ -40,22 +42,21 @@ export class Urgencia {
   @JoinColumn({ name: 'id_tipo_paciente' })
   id_tipo_paciente: TipoPaciente;
 
-  @ManyToOne(() => Procedimiento, procedimiento => procedimiento.id_procedimiento)
-  @JoinColumn({ name: 'id_procedimiento' })
-  id_procedimiento: Procedimiento;
-
   @ManyToOne(() => Factores, factores => factores.id_factor)
   @JoinColumn({ name: 'id_factor' })
   id_factor: Factores;
-
-  @ManyToOne(() => Test, test => test.id_test)
-  @JoinColumn({ name: 'id_test' })
-  id_test: Test;
 
   @ManyToOne(() => EstadoInforme, estadoInforme => estadoInforme.id_estado_informe)
   @JoinColumn({ name: 'id_estado_informe' })
   id_estado_informe: EstadoInforme;
 
+  @ManyToOne(() => Diagnostico, diagnostico => diagnostico.id_diagnostico)
+  @JoinColumn({ name: 'diagnostico_principal' })
+  diagnostico_principal: Diagnostico;
+
   @Column({ type: 'text' })
-  diagnostico_principal: string;
+  diagnosticos_secundarios: string;
+
+  @Column({ type: 'text', nullable: true })
+  otro_diagnostico: string;
 }

@@ -7,7 +7,7 @@ export class LogActividad {
   @PrimaryGeneratedColumn()
   id_log_actividad: number;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   fecha_registro: Date;
 
   @ManyToOne(() => Usuario, usuario => usuario.id_usuario)
@@ -23,9 +23,9 @@ export class LogActividad {
   @Column({ type: 'text' })
   tipo_actividad: string;
 
-  @Column({ type: 'text'})
+  @Column({ type: 'text', nullable: true })
   informacion_anterior: string;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text', nullable: true })
   informacion_nueva: string;
 }

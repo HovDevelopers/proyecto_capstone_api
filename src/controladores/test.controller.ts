@@ -1,7 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { TestService } from '../modelos/servicios/test.service';
-import { crearNombreCodigo } from '../modelos/interfaces/nombreCodigo';
-import { actualizarNombreCodigo } from '../modelos/interfaces/nombreCodigo';
+import { nombre } from '../modelos/interfaces/nombre.interface';
 import { Test } from 'src/modelos/clases/test.entity';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -12,8 +11,8 @@ export class TestController {
     constructor(private readonly testService: TestService) {}
 
     @Post()
-    async crearTest(@Body() crearTestDto: crearNombreCodigo): Promise<Test> {
-        return await this.testService.crearTest(crearTestDto);
+    async crearTest(@Body() crearTest: nombre): Promise<Test> {
+        return await this.testService.crearTest(crearTest);
     }
 
     @Get()
@@ -27,8 +26,8 @@ export class TestController {
     }
 
     @Patch(':id')
-    async actualizar(@Param('id') id: number, @Body() actualizarTestDto: actualizarNombreCodigo): Promise<Test> {
-        return await this.testService.actualizar(id, actualizarTestDto);
+    async actualizar(@Param('id') id: number, @Body() actualizarTest: nombre): Promise<Test> {
+        return await this.testService.actualizar(id, actualizarTest);
     }
 
     @Delete(':id')

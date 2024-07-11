@@ -1,8 +1,8 @@
 import { Controller, Get, Param, Post, Body, Delete, Patch } from '@nestjs/common';
 import { DiagnosticoService } from '../modelos/servicios/diagnostico.service';
 import { Diagnostico } from 'src/modelos/clases/diagnostico.entity';
-import { actualizarDiagnostico } from '../modelos/interfaces/diagnostico';
-import { crearDiagnostico } from '../modelos/interfaces/diagnostico';
+import { actualizarDiagnostico } from '../modelos/interfaces/diagnostico.interface';
+import { crearDiagnostico } from '../modelos/interfaces/diagnostico.interface';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Diagnostico')
@@ -12,8 +12,8 @@ export class DiagnosticoController {
     constructor(private readonly diagnosticoService: DiagnosticoService) {}
 
     @Post()
-    async crearDiagnostico(@Body() crearDiagnosticoDto: crearDiagnostico): Promise<Diagnostico> {
-        return this.diagnosticoService.crearDiagnostico(crearDiagnosticoDto);
+    async crearDiagnostico(@Body() crearDiagnostico: crearDiagnostico): Promise<Diagnostico> {
+        return this.diagnosticoService.crearDiagnostico(crearDiagnostico);
     }
 
     @Get()
@@ -27,8 +27,8 @@ export class DiagnosticoController {
     }
 
     @Patch(':id')
-    async actualizar(@Param('id') id: number, @Body() actualizarDiagnosticoDto: actualizarDiagnostico): Promise<Diagnostico> {
-        return this.diagnosticoService.actualizar(id, actualizarDiagnosticoDto);
+    async actualizar(@Param('id') id: number, @Body() actualizarDiagnostico: actualizarDiagnostico): Promise<Diagnostico> {
+        return this.diagnosticoService.actualizar(id, actualizarDiagnostico);
     }
 
     @Delete(':id')

@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { crearNombreCodigo } from '../interfaces/nombreCodigo';
-import { actualizarNombreCodigo } from '../interfaces/nombreCodigo';
+import { nombre } from '../interfaces/nombre.interface';
 import { ProcedenciaConsultaNuevo } from 'src/modelos/clases/procedencia_consulta_nuevo.entity';
 import { Repository } from 'typeorm';
 
@@ -10,7 +9,7 @@ export class ProcedenciaConsultaNuevoService {
 
     constructor(@InjectRepository(ProcedenciaConsultaNuevo) private repoProcedenciaConsultaNuevo: Repository<ProcedenciaConsultaNuevo>){}
 
-    async crearProcedenciaConsultaNuevo(nombreProcedenciaConsultaNuevo: crearNombreCodigo){
+    async crearProcedenciaConsultaNuevo(nombreProcedenciaConsultaNuevo: nombre){
         const ProcedenciaConsultaNuevoNueva = this.repoProcedenciaConsultaNuevo.create(nombreProcedenciaConsultaNuevo);
         return await this.repoProcedenciaConsultaNuevo.save(ProcedenciaConsultaNuevoNueva);
     }
@@ -23,7 +22,7 @@ export class ProcedenciaConsultaNuevoService {
         return await this.repoProcedenciaConsultaNuevo.findOne({ where: { id_procedencia_nuevo: id }});
     }
 
-    async actualizar(id: number, actualizarProcedenciaConsultaNuevo: actualizarNombreCodigo): Promise<ProcedenciaConsultaNuevo> {
+    async actualizar(id: number, actualizarProcedenciaConsultaNuevo: nombre): Promise<ProcedenciaConsultaNuevo> {
         const procedenciaConsultaNuevo = await this.repoProcedenciaConsultaNuevo.findOne({ where: { id_procedencia_nuevo: id } });
         if (!procedenciaConsultaNuevo) {
             return null;

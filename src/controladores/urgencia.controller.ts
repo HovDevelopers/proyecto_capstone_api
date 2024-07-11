@@ -1,8 +1,8 @@
-import { Controller, Get, Post, Delete, Param, Body, Patch } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Param, Body, Patch, Req } from '@nestjs/common';
 import { UrgenciaService } from '../modelos/servicios/urgencia.service';
 import { Urgencia } from 'src/modelos/clases/urgencia.entity';
-import { crearUrgencia } from '../modelos/interfaces/Urgencia';
-import { actualizarUrgencia } from '../modelos/interfaces/Urgencia';
+import { crearUrgencia } from '../modelos/interfaces/urgencia.interface';
+import { actualizarUrgencia } from '../modelos/interfaces/urgencia.interface';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Urgencia')
@@ -11,8 +11,8 @@ export class UrgenciaController {
     constructor(private readonly urgenciaService: UrgenciaService) {}
 
     @Post()
-    async crearUrgencia(@Body() urgencia: crearUrgencia): Promise<Urgencia> {
-        return await this.urgenciaService.crearUrgencia(urgencia);
+    async crearUrgencia(@Body() urgencia: crearUrgencia, @Req() req: any): Promise<Urgencia> {
+        return await this.urgenciaService.crearUrgencia(urgencia, req);
     }
 
     @Get()

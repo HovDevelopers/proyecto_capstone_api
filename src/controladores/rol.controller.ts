@@ -1,7 +1,6 @@
-import { Body, Controller, Param, Patch, Delete,Post, Get } from '@nestjs/common';
+import { Body, Controller, Param, Patch, Delete,Post, Get, Req } from '@nestjs/common';
 import { RolService } from '../modelos/servicios/rol.service';
-import { crearNombre } from '../modelos/interfaces/nombre';
-import { actualizarNombre } from '../modelos/interfaces/nombre';
+import { nombre } from '../modelos/interfaces/nombre.interface';
 import { Rol } from 'src/modelos/clases/rol.entity';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -12,8 +11,8 @@ export class RolController {
     constructor(private readonly rolService: RolService) {}
 
     @Post()
-    async crearRol(@Body() Rol: crearNombre) {
-        return this.rolService.crearRol(Rol);
+    async crearRol(@Body() Rol: nombre, @Req() req: any) {
+        return this.rolService.crearRol(Rol, req);
     }
 
     @Get()
@@ -27,7 +26,7 @@ export class RolController {
     }
 
     @Patch(':id')
-    async actualizar(@Param('id') id: number, @Body() actualizarRol: actualizarNombre) {
+    async actualizar(@Param('id') id: number, @Body() actualizarRol: nombre) {
         return this.rolService.actualizar(id, actualizarRol);
     }
 

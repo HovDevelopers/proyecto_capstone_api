@@ -1,8 +1,8 @@
-import { Body, Controller, Param, Patch, Post, Get, Delete } from '@nestjs/common';
+import { Body, Controller, Param, Patch, Post, Get, Delete, Req } from '@nestjs/common';
 import { UsuarioService } from '../modelos/servicios/usuario.service';
 import { Usuario } from 'src/modelos/clases/usuario.entity';
-import { actualizarUsuario } from '../modelos/interfaces/usuario';
-import { crearUsuario } from '../modelos/interfaces/usuario';
+import { actualizarUsuario } from '../modelos/interfaces/usuario.interface';
+import { crearUsuario } from '../modelos/interfaces/usuario.interface';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Usuario')
@@ -12,8 +12,8 @@ export class UsuarioController {
     constructor(private usuarioService: UsuarioService){}
 
     @Post()
-    crearUsuario(@Body() usuario: crearUsuario){
-        return this.usuarioService.crearUsuario(usuario);
+    crearUsuario(@Body() usuario: crearUsuario, @Req() req: any){
+        return this.usuarioService.crearUsuario(usuario, req);
     }
 
     @Get()
@@ -32,8 +32,8 @@ export class UsuarioController {
     }
 
     @Patch(':id')
-    async actualizar(@Param('id') id: number, @Body() actualizarUsuario: actualizarUsuario): Promise<Usuario> {
-        return await this.usuarioService.actualizar(id, actualizarUsuario);
+    async actualizar(@Param('id') id: number, @Body() actualizarUsuario: actualizarUsuario, @Req() req: any): Promise<Usuario> {
+        return await this.usuarioService.actualizar(id, actualizarUsuario, req);
     }
 
     @Delete(':id')

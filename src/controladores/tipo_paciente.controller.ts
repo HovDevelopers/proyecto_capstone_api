@@ -1,6 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
-import { crearNombreCodigo } from '../modelos/interfaces/nombreCodigo';
-import { actualizarNombreCodigo } from '../modelos/interfaces/nombreCodigo';
+import { nombre } from '../modelos/interfaces/nombre.interface';
 import { TipoPaciente } from 'src/modelos/clases/tipo_paciente..entity';
 import { TipoPacienteService } from '../modelos/servicios/tipo_paciente.service';
 import { ApiTags } from '@nestjs/swagger';
@@ -12,8 +11,8 @@ export class TipoPacienteController {
     constructor(private readonly tipoPacienteService: TipoPacienteService) {}
 
     @Post()
-    async crearTipoPaciente(@Body() crearTipoPacienteDto: crearNombreCodigo): Promise<TipoPaciente> {
-        return await this.tipoPacienteService.crearTipoPaciente(crearTipoPacienteDto);
+    async crearTipoPaciente(@Body() crearTipoPaciente: nombre): Promise<TipoPaciente> {
+        return await this.tipoPacienteService.crearTipoPaciente(crearTipoPaciente);
     }
 
     @Get()
@@ -27,8 +26,8 @@ export class TipoPacienteController {
     }
 
     @Patch(':id')
-    async actualizar(@Param('id') id: number, @Body() actualizarTipoPacienteDto: actualizarNombreCodigo): Promise<TipoPaciente> {
-        return await this.tipoPacienteService.actualizar(id, actualizarTipoPacienteDto);
+    async actualizar(@Param('id') id: number, @Body() actualizarTipoPaciente: nombre): Promise<TipoPaciente> {
+        return await this.tipoPacienteService.actualizar(id, actualizarTipoPaciente);
     }
 
     @Delete(':id')

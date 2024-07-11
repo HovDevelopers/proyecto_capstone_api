@@ -1,8 +1,7 @@
 import { Controller, Get, Param, Post, Body, Delete, Patch } from '@nestjs/common';
 import { ProcedenciaConsultaNuevoService } from '../modelos/servicios/procedencia_consulta_nuevo.service';
 import { ProcedenciaConsultaNuevo } from 'src/modelos/clases/procedencia_consulta_nuevo.entity';
-import { crearNombreCodigo } from '../modelos/interfaces/nombreCodigo';
-import { actualizarNombreCodigo } from '../modelos/interfaces/nombreCodigo';
+import { nombre } from '../modelos/interfaces/nombre.interface';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Procedencia Consulta Nuevo')
@@ -11,8 +10,8 @@ export class ProcedenciaConsultaNuevoController {
     constructor(private readonly procedenciaConsultaNuevoService: ProcedenciaConsultaNuevoService) {}
 
     @Post()
-    async crearProcedenciaConsultaNuevo(@Body() crearProcedenciaConsultaNuevoDto: crearNombreCodigo): Promise<ProcedenciaConsultaNuevo> {
-        return this.procedenciaConsultaNuevoService.crearProcedenciaConsultaNuevo(crearProcedenciaConsultaNuevoDto);
+    async crearProcedenciaConsultaNuevo(@Body() crearProcedenciaConsultaNuevo: nombre): Promise<ProcedenciaConsultaNuevo> {
+        return this.procedenciaConsultaNuevoService.crearProcedenciaConsultaNuevo(crearProcedenciaConsultaNuevo);
     }
 
     @Get()
@@ -26,8 +25,8 @@ export class ProcedenciaConsultaNuevoController {
     }
 
     @Patch(':id')
-    async actualizar(@Param('id') id: number, @Body() actualizarProcedenciaConsultaNuevoDto: actualizarNombreCodigo): Promise<ProcedenciaConsultaNuevo> {
-        return this.procedenciaConsultaNuevoService.actualizar(id, actualizarProcedenciaConsultaNuevoDto);
+    async actualizar(@Param('id') id: number, @Body() actualizarProcedenciaConsultaNuevo: nombre): Promise<ProcedenciaConsultaNuevo> {
+        return this.procedenciaConsultaNuevoService.actualizar(id, actualizarProcedenciaConsultaNuevo);
     }
 
     @Delete(':id')

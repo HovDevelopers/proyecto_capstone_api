@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { crearNombreCodigo } from '../interfaces/nombreCodigo';
-import { actualizarNombreCodigo } from '../interfaces/nombreCodigo';
+import { nombre } from '../interfaces/nombre.interface';
 import { Test } from 'src/modelos/clases/test.entity';
 import { Repository } from 'typeorm';
 
@@ -10,7 +9,7 @@ export class TestService {
 
     constructor(@InjectRepository(Test) private repoTest: Repository<Test>){}
 
-    async crearTest(nombreTest: crearNombreCodigo){
+    async crearTest(nombreTest: nombre){
         const TestNueva = this.repoTest.create(nombreTest);
         return await this.repoTest.save(TestNueva);
     }
@@ -23,7 +22,7 @@ export class TestService {
         return await this.repoTest.findOne({ where: { id_test: id }});
     }
 
-    async actualizar(id: number, actualizarTest: actualizarNombreCodigo): Promise<Test> {
+    async actualizar(id: number, actualizarTest: nombre): Promise<Test> {
         const test = await this.repoTest.findOne({ where: { id_test: id } });
         if (!test) {
             return null;

@@ -1,8 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { FactoresService } from '../modelos/servicios/factores.service';
 import { Factores } from 'src/modelos/clases/factores.entity';
-import { crearNombreCodigo } from '../modelos/interfaces/nombreCodigo';
-import { actualizarNombreCodigo } from '../modelos/interfaces/nombreCodigo';
+import { nombre } from '../modelos/interfaces/nombre.interface';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Factores')
@@ -12,8 +11,8 @@ export class FactoresController {
     constructor(private readonly factoresService: FactoresService) {}
 
     @Post()
-    async crearFactores(@Body() crearFactoresDto: crearNombreCodigo): Promise<Factores> {
-        return await this.factoresService.crearFactores(crearFactoresDto);
+    async crearFactores(@Body() crearFactores: nombre): Promise<Factores> {
+        return await this.factoresService.crearFactores(crearFactores);
     }
 
     @Get()
@@ -27,8 +26,8 @@ export class FactoresController {
     }
 
     @Patch(':id')
-    async actualizar(@Param('id') id: number, @Body() actualizarFactoresDto: actualizarNombreCodigo): Promise<Factores> {
-        return await this.factoresService.actualizar(id, actualizarFactoresDto);
+    async actualizar(@Param('id') id: number, @Body() actualizarFactores: nombre): Promise<Factores> {
+        return await this.factoresService.actualizar(id, actualizarFactores);
     }
 
     @Delete(':id')

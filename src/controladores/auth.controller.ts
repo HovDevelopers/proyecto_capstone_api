@@ -1,8 +1,6 @@
-import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, HttpException, HttpStatus, Post, Req } from '@nestjs/common';
 import { AuthService } from '../modelos/servicios/auth.service';
 import { ApiTags } from '@nestjs/swagger';
-import { Rol } from '../auth/enums/rol.enum';
-import { TokenRol } from '../auth/decoradores/auth.decorator';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -10,14 +8,17 @@ export class AuthController {
     constructor(private authService: AuthService) {}
     
   @Post('login')
-  login(@Body() login: login) {
-    return this.authService.login(login);
+  login(@Body() login: login, @Req() req: any) {
+    return this.authService.login(login, req);
   }
 
-  /*
-  @Get('perfil')
-  @TokenRol(Rol.ADMIN)
-  getPerfil(@Request() req: any){
-    return this.authService.perfil(req.user);
-  }*/
+  @Post('refresh_token')
+  async refreshToken(@Body('refresh_token') token: string) {
+    try {
+      return this.authService.refreshToken(token);
+    } catch (e) {
+      throw new HttpException('Invalid refresh token', HttpStatus.UNAUTHORIZED); 
+    }
+  }
+
 }

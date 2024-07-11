@@ -8,12 +8,12 @@ export class JwtMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
     const encabezadoAuth = req.headers['authorization'];
     if (!encabezadoAuth) {
-      throw new UnauthorizedException('Token no proporcionado');
+      throw new UnauthorizedException('Middleware detecto: Token no proporcionado');
     }
 
     const token = encabezadoAuth.split(' ')[1];
     if (!token) {
-      throw new UnauthorizedException('Token no proporcionado');
+      throw new UnauthorizedException('Middleware detecto: Token no proporcionado');
     }
 
     try {
@@ -21,7 +21,7 @@ export class JwtMiddleware implements NestMiddleware {
       req['user'] = tokenDecodificado;
       next();
     } catch (error) {
-      throw new UnauthorizedException('Token inválido');
+      throw new UnauthorizedException('Middleware detecto: Token inválido');
     }
   }
 }

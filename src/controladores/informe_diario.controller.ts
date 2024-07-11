@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Delete, Param, Body, Patch } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Param, Body, Patch, Req } from '@nestjs/common';
 import { InformeDiarioService } from '../modelos/servicios/informe_diario.service';
 import { InformeDiario } from 'src/modelos/clases/informe_diario.entity';
-import { crearInformeDiario } from '../modelos/interfaces/informeDiario';
-import { actualizarInformeDiario } from '../modelos/interfaces/informeDiario';
+import { crearInformeDiario } from '../modelos/interfaces/informeDiario.interface';
+import { actualizarInformeDiario } from '../modelos/interfaces/informeDiario.interface';
 import { ApiTags } from '@nestjs/swagger';
+import { Diagnostico } from 'src/modelos/clases/diagnostico.entity';
 
 @ApiTags('Informe Diario')
 @Controller('informe_diario')
@@ -11,8 +12,8 @@ export class InformeDiarioController {
     constructor(private readonly informeDiarioService: InformeDiarioService) {}
 
     @Post()
-    async crearInformeDiario(@Body() informeDiario: crearInformeDiario): Promise<InformeDiario> {
-        return await this.informeDiarioService.crearInformeDiario(informeDiario);
+    async crearInformeDiario(@Body() informeDiario: crearInformeDiario, @Req() req: any): Promise<InformeDiario> {
+        return await this.informeDiarioService.crearInformeDiario(informeDiario, req);
     }
 
     @Get()
@@ -23,6 +24,11 @@ export class InformeDiarioController {
     @Get(':id')
     async getInformeDiarioById(@Param('id') id: number): Promise<InformeDiario> {
         return await this.informeDiarioService.getInformeDiarioById(id);
+    }
+
+    @Get('ultimo_diagnostico/:pacienteId')
+    async obtenerUltimoDiagnostico(@Param('pacienteId') pacienteId: number): Promise<Diagnostico | null> {
+        return this.informeDiarioService.obtenerUltimoDiagnostico(pacienteId);
     }
 
     @Patch(':id')

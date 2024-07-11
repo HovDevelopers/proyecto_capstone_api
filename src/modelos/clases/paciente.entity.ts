@@ -6,13 +6,13 @@ export class Paciente {
   @PrimaryGeneratedColumn()
   id_paciente: number;
 
-  @Column()
+  @Column({ unique: true })
   n_ficha: number;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: 'text' })
   rut: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: 'text' })
   pasaporte: string;
 
   @Column({ type: 'date' })

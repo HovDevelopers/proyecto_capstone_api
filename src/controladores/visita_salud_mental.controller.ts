@@ -1,7 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { VisitaSaludMentalService } from '../modelos/servicios/visita_salud_mental.service';
-import { crearNombreCodigo } from '../modelos/interfaces/nombreCodigo';
-import { actualizarNombreCodigo } from '../modelos/interfaces/nombreCodigo';
+import { nombre } from '../modelos/interfaces/nombre.interface';
 import { VisitaSaludMental } from 'src/modelos/clases/visita_salud_mental.entity';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -12,8 +11,8 @@ export class VisitaSaludMentalController {
     constructor(private readonly visitaSaludMentalService: VisitaSaludMentalService) {}
 
     @Post()
-    async crearVisitaSaludMental(@Body() crearVisitaSaludMentalDto: crearNombreCodigo): Promise<VisitaSaludMental> {
-        return await this.visitaSaludMentalService.crearVisitaSaludMental(crearVisitaSaludMentalDto);
+    async crearVisitaSaludMental(@Body() crearVisitaSaludMental: nombre): Promise<VisitaSaludMental> {
+        return await this.visitaSaludMentalService.crearVisitaSaludMental(crearVisitaSaludMental);
     }
 
     @Get()
@@ -27,8 +26,8 @@ export class VisitaSaludMentalController {
     }
 
     @Patch(':id')
-    async actualizar(@Param('id') id: number, @Body() actualizarVisitaSaludMentalDto: actualizarNombreCodigo): Promise<VisitaSaludMental> {
-        return await this.visitaSaludMentalService.actualizar(id, actualizarVisitaSaludMentalDto);
+    async actualizar(@Param('id') id: number, @Body() actualizarVisitaSaludMental: nombre): Promise<VisitaSaludMental> {
+        return await this.visitaSaludMentalService.actualizar(id, actualizarVisitaSaludMental);
     }
 
     @Delete(':id')

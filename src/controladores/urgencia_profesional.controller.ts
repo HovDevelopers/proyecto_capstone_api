@@ -1,9 +1,10 @@
-import { Controller, Post, Get, Param, Body, Delete, Patch } from '@nestjs/common';
+import { Controller, Post, Get, Param, Body, Delete, Patch, Req } from '@nestjs/common';
 import { UrgenciaProfesionalService } from '../modelos/servicios/urgencia_profesional.service';
 import { UrgenciaProfesional } from 'src/modelos/clases/urgencia_profesional.entity';
-import { crearUrgenciaProfesional } from '../modelos/interfaces/UrgenciaProfesional';
-import { actualizarUrgenciaProfesional } from '../modelos/interfaces/UrgenciaProfesional';
+import { crearUrgenciaProfesional } from '../modelos/interfaces/urgenciaProfesional.interface';
+import { actualizarUrgenciaProfesional } from '../modelos/interfaces/urgenciaProfesional.interface';
 import { ApiTags } from '@nestjs/swagger';
+import { Urgencia } from 'src/modelos/clases/urgencia.entity';
 
 @ApiTags('Urgencia Profesional')
 @Controller('urgencia_profesional')
@@ -11,8 +12,8 @@ export class UrgenciaProfesionalController {
   constructor(private readonly urgenciaProfesionalService: UrgenciaProfesionalService) {}
 
   @Post()
-  async crearUrgenciaProfesional(@Body() crearUrgenciaProfesional: crearUrgenciaProfesional): Promise<UrgenciaProfesional> {
-    return this.urgenciaProfesionalService.crearUrgenciaProfesional(crearUrgenciaProfesional);
+  async crearUrgenciaProfesional(@Body() crearUrgenciaProfesional: crearUrgenciaProfesional, @Req() req: any): Promise<UrgenciaProfesional> {
+    return this.urgenciaProfesionalService.crearUrgenciaProfesional(crearUrgenciaProfesional, req);
   }
 
   @Get()
@@ -21,7 +22,7 @@ export class UrgenciaProfesionalController {
   }
 
   @Get('informes/:id')
-  async obtenerInformesPorProfesional(@Param('id') id: number): Promise<UrgenciaProfesional[] | undefined> {
+  async obtenerInformesPorProfesional(@Param('id') id: number): Promise<Urgencia[] | undefined> {
     return this.urgenciaProfesionalService.obtenerInformesPorProfesional(id);
   }
 

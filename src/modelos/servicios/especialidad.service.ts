@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { crearNombre } from '../interfaces/nombre';
-import { actualizarNombre } from '../interfaces/nombre';
+import { nombre } from '../interfaces/nombre.interface';
 import { Especialidad } from 'src/modelos/clases/especialidad.entity';
 import { Repository } from 'typeorm';
 
@@ -10,7 +9,7 @@ export class EspecialidadService {
 
     constructor(@InjectRepository(Especialidad) private repoEspecialidad: Repository<Especialidad>){}
 
-    async crearEspecialidad(nombreEspecialidad: crearNombre){
+    async crearEspecialidad(nombreEspecialidad: nombre){
         const especialidadNueva = this.repoEspecialidad.create(nombreEspecialidad);
         return await this.repoEspecialidad.save(especialidadNueva);
     }
@@ -23,7 +22,7 @@ export class EspecialidadService {
         return await this.repoEspecialidad.findOne({ where: { id_especialidad: id }});
     }
 
-    async actualizar(id: number, actualizarEspecialidad: actualizarNombre): Promise<Especialidad> {
+    async actualizar(id: number, actualizarEspecialidad: nombre): Promise<Especialidad> {
         const especialidad = await this.repoEspecialidad.findOne({ where: { id_especialidad: id } });
         if (!especialidad) {
             return null;

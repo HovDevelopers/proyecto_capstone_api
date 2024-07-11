@@ -9,6 +9,5 @@ export class Dispositivo {
   @Column({ type: 'text'})
   nombre: string;
 
-  @Column({ nullable: true })
-  codigo: number;
+  
 }
