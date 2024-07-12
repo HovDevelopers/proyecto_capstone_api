@@ -25,7 +25,6 @@ import { JwtMiddleware } from './middlewares/jwt.middleware';
 import { ConsultoriaModule } from './modulos/consultoria.module';
 import { ActividadGrupalModule } from './modulos/actividad_grupal.module';
 import { LogAccesoMiddleware } from './middlewares/logAcceso.middleware';
-import { InitModule } from './modulos/init.module';
 import { LogAccesoModule } from './modulos/log_acceso.module';
 import { LogActividadMiddleware } from './middlewares/logActividad.middleware';
 import { LogActividadModule } from './modulos/logActividad.module';
@@ -34,7 +33,7 @@ import { LogActividadModule } from './modulos/logActividad.module';
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
     UsuarioModule, ProfesionalModule, PacienteModule, EspecialidadModule, RolModule,
-    EstadoUsuarioModule, InitModule, EstadoInformeModule, ActividadModule, FactoresModule, ProcedimientoModule, 
+    EstadoUsuarioModule, EstadoInformeModule, ActividadModule, FactoresModule, ProcedimientoModule, 
     TestModule, TipoPacienteModule, VisitaSaludMentalModule, DiagnosticoModule, DispositivoModule, 
     ProcedenciaConsultaModule, InformeDiarioModule, AuthModule, UrgenciaModule, ComisionIngresoModule, 
     ConsultoriaModule, ActividadGrupalModule, LogAccesoModule, LogActividadModule],

@@ -392,6 +392,12 @@ INSERT INTO estado_usuario (nombre) VALUES ('Activo'), ('Inactivo');
 INSERT INTO especialidad (nombre) VALUES ('TIC'),('Estadística'),('Médico Psiquiatra Adultos'), ('Médico Psiquiatra Infanto Adolescente'), ('Médico General'), ('Psicólogo'),
 										('Enfermera'), ('Trabajador Social'), ('Terapeuta Ocupacional'), ('Psicopedagogo'), ('TENS');
 
+INSERT INTO profesional (rut_profesional, nombres, apellido_paterno, apellido_materno,correo, id_especialidad)
+VALUES ('20091616-6', 'Manuel', 'Segovia', 'Araya', 'manuel.segovia@redsalud.gob.cl', 1);
+
+INSERT INTO usuario (id_profesional, fecha_creacion, nombre_usuario, clave, id_rol, id_estado_usuario)
+VALUES (1, NOW(), '20091616-6', '$2y$10$mc5IST2jxMg0qe6QZ2G0Te/WfugLix96Ip76LBOx96Ezmi9UPEZse', 1, 1);
+
 -- Inserts Modulos sueltos
 INSERT INTO dispositivo (nombre) VALUES
 ('CAE'),
