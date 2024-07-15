@@ -97,7 +97,7 @@ CREATE TABLE paciente_auditoria (
     id_paciente_auditoria INT AUTO_INCREMENT PRIMARY KEY,
     id_paciente INT NOT NULL,
     id_usuario INT NOT NULL,
-    n_ficha INT NOT NULL UNIQUE,
+    n_ficha INT NOT NULL,
     rut TEXT,
     pasaporte TEXT,
     fecha_nacimiento DATE NOT NULL,
@@ -384,14 +384,14 @@ CREATE TABLE pacientes_actividad_grupal (
 # =================================================================================
 # =================================================================================
 -- Inserts Modulos usuario
-INSERT INTO rol (nombre) VALUES ('Administrador'), ('Jefatura Psiquiatria'), ('Jefatura Estadistica'), 
-								('Personal Psiquiatria'), ('Personal Estadistica');
+INSERT INTO rol (nombre) VALUES ('Administrador'), ('Jefatura Psiquiatría'), ('Jefatura Estadística'), 
+								('Personal Psiquiatría'), ('Personal Estadística');
 
 INSERT INTO estado_usuario (nombre) VALUES ('Activo'), ('Inactivo');
 
 INSERT INTO especialidad (nombre) VALUES ('TIC'),('Estadística'),('Médico Psiquiatra Adultos'), ('Médico Psiquiatra Infanto Adolescente'), ('Médico General'), ('Psicólogo'),
 										('Enfermera'), ('Trabajador Social'), ('Terapeuta Ocupacional'), ('Psicopedagogo'), ('TENS');
-
+                                        
 INSERT INTO profesional (rut_profesional, nombres, apellido_paterno, apellido_materno,correo, id_especialidad)
 VALUES ('20091616-6', 'Manuel', 'Segovia', 'Araya', 'manuel.segovia@redsalud.gob.cl', 1);
 
@@ -402,17 +402,17 @@ VALUES (1, NOW(), '20091616-6', '$2y$10$mc5IST2jxMg0qe6QZ2G0Te/WfugLix96Ip76LBOx
 INSERT INTO dispositivo (nombre) VALUES
 ('CAE'),
 ('CESAM'),
-('Hospital Dia');
+('Hospital Día');
 
 INSERT INTO procedencia_consulta (nombre) VALUES
 ('Control'),
 ('Alta'),
-('No se presento');
+('No se presentó');
 
 INSERT INTO procedencia_comision_ingreso (nombre) VALUES
 ('Ingreso'),
 ('Alta'),
-('No se presento');
+('No se presentó');
 
 INSERT INTO procedencia_consulta_nuevo (nombre) VALUES
 ('APS'),
@@ -465,7 +465,7 @@ INSERT INTO actividad (nombre) VALUES
 ('Informes a Policia Local'),-- esta bloquea visita, procedimiento y test
 ('Informes a Tribunal laborales'),-- esta bloquea visita, procedimiento y test
 ('Informes a Otros dispositivos'),-- esta bloquea visita, procedimiento y test
-('No se presento');
+('No se presentó');
 
 INSERT INTO tipo_actividades_grupales (nombre) VALUES
 ('Intervención Psicosocial Grupal'),
