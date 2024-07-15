@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { nombre } from '../interfaces/nombre.interface';
-import { TipoPaciente } from 'src/modelos/clases/tipo_paciente..entity';
+import { TipoPaciente } from 'src/modelos/clases/tipo_paciente.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()

@@ -7,7 +7,7 @@ import { Paciente } from "../clases/paciente.entity";
 import { ProcedenciaConsulta } from "../clases/procedencia_consulta.entity";
 import { Procedimiento } from "../clases/procedimiento.entity";
 import { Test } from "../clases/test.entity";
-import { TipoPaciente } from "../clases/tipo_paciente..entity";
+import { TipoPaciente } from "../clases/tipo_paciente.entity";
 import { VisitaSaludMental } from "../clases/visita_salud_mental.entity";
 
 export interface crearInformeDiario {

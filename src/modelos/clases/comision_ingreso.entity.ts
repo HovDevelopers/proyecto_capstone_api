@@ -3,7 +3,7 @@ import { EstadoInforme } from './estado_informe.entity';
 import { Dispositivo } from 'src/modelos/clases/dispositivo.entity';
 import { ProcedenciaComisionIngreso } from 'src/modelos/clases/procedencia_comision_ingreso.entity';
 import { Actividad } from 'src/modelos/clases/actividad.entity';
-import { TipoPaciente } from 'src/modelos/clases/tipo_paciente..entity';
+import { TipoPaciente } from 'src/modelos/clases/tipo_paciente.entity';
 import { Factores } from 'src/modelos/clases/factores.entity';
 import { ProcedenciaConsultaNuevo } from './procedencia_consulta_nuevo.entity';
 import { Diagnostico } from './diagnostico.entity';

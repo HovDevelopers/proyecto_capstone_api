@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { nombre } from '../modelos/interfaces/nombre.interface';
-import { TipoPaciente } from 'src/modelos/clases/tipo_paciente..entity';
+import { TipoPaciente } from 'src/modelos/clases/tipo_paciente.entity';
 import { TipoPacienteService } from '../modelos/servicios/tipo_paciente.service';
 import { ApiTags } from '@nestjs/swagger';
 
