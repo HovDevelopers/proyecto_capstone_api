@@ -401,7 +401,7 @@ VALUES ('20091616-6', 'Manuel', 'Segovia', 'Araya', 'manuel.segovia@redsalud.gob
 
 INSERT INTO usuario (id_profesional, fecha_creacion, nombre_usuario, clave, id_rol, id_estado_usuario)
 VALUES (1, NOW(), '20091616-6', '$2y$10$mc5IST2jxMg0qe6QZ2G0Te/WfugLix96Ip76LBOx96Ezmi9UPEZse', 1, 1);
-select * from log_acceso;
+
 -- Inserts Modulos sueltos
 INSERT INTO dispositivo (nombre, estado) VALUES
 ('CAE', true),
