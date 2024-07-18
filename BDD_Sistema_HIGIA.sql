@@ -191,7 +191,8 @@ CREATE TABLE procedencia_consulta_nuevo (
 
 CREATE TABLE dispositivo (
   id_dispositivo INT AUTO_INCREMENT PRIMARY KEY,
-  nombre TEXT NOT NULL
+  nombre TEXT NOT NULL,
+  estado boolean NOT NULL
 );
 
 CREATE TABLE diagnostico (
@@ -227,6 +228,7 @@ CREATE TABLE informe_diario (
   diagnosticos_secundarios TEXT NOT NULL,
   otro_diagnostico TEXT,
   otro_procedimiento TEXT,
+  cronico boolean NOT NULL,
   FOREIGN KEY (id_paciente_auditoria) REFERENCES paciente_auditoria(id_paciente_auditoria),
   FOREIGN KEY (id_dispositivo) REFERENCES dispositivo(id_dispositivo),
   FOREIGN KEY (id_procedencia_consulta) REFERENCES procedencia_consulta(id_procedencia_consulta),
@@ -399,10 +401,10 @@ INSERT INTO usuario (id_profesional, fecha_creacion, nombre_usuario, clave, id_r
 VALUES (1, NOW(), '20091616-6', '$2y$10$mc5IST2jxMg0qe6QZ2G0Te/WfugLix96Ip76LBOx96Ezmi9UPEZse', 1, 1);
 
 -- Inserts Modulos sueltos
-INSERT INTO dispositivo (nombre) VALUES
-('CAE'),
-('CESAM'),
-('Hospital Día');
+INSERT INTO dispositivo (nombre, estado) VALUES
+('CAE', true),
+('CESAM', true),
+('Hospital Día', true);
 
 INSERT INTO procedencia_consulta (nombre) VALUES
 ('Control'),
