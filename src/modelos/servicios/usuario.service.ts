@@ -5,7 +5,6 @@ import { crearUsuario } from '../interfaces/usuario.interface';
 import { Usuario } from 'src/modelos/clases/usuario.entity';
 import { Repository } from 'typeorm';
 import * as bcryptjs from 'bcryptjs';
-import { LogActividad } from '../clases/log_actividad.entity';
 import { LogActividadService } from './log_actividad.service';
 
 

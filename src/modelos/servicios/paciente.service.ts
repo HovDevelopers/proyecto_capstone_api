@@ -100,7 +100,8 @@ export class PacienteService {
             apellido_materno: paciente.apellido_materno,
             prevision: paciente.prevision,
             sexo: paciente.sexo,
-            genero: paciente.genero
+            genero: paciente.genero,
+            prais: paciente.prais
         };
 
         const pacienteAud = this.repoPacienteAuditoria.create(pacienteAuditoria);

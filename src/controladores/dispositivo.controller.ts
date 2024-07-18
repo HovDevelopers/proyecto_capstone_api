@@ -1,7 +1,8 @@
-import { Controller, Get, Param, Post, Body, Delete, Patch } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Delete, Patch, Req } from '@nestjs/common';
 import { DispositivoService } from '../modelos/servicios/dispositivo.service';
 import { Dispositivo } from 'src/modelos/clases/dispositivo.entity';
-import { nombre } from '../modelos/interfaces/nombre.interface';
+import { crearDispositivo } from '../modelos/interfaces/dispositivo.interface';
+import { actualizarDispositivo } from '../modelos/interfaces/dispositivo.interface';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Dispositivo')
@@ -10,8 +11,8 @@ export class DispositivoController {
     constructor(private readonly dispositivoService: DispositivoService) {}
 
     @Post()
-    async crearDispositivo(@Body() crearDispositivo: nombre): Promise<Dispositivo> {
-        return this.dispositivoService.crearDispositivo(crearDispositivo);
+    async crearDispositivo(@Body() crearDispositivo: crearDispositivo, @Req() req: any): Promise<Dispositivo> {
+        return this.dispositivoService.crearDispositivo(crearDispositivo, req);
     }
 
     @Get()
@@ -25,8 +26,8 @@ export class DispositivoController {
     }
 
     @Patch(':id')
-    async actualizar(@Param('id') id: number, @Body() actualizarDispositivo: nombre): Promise<Dispositivo> {
-        return this.dispositivoService.actualizar(id, actualizarDispositivo);
+    async actualizar(@Param('id') id: number, @Body() actualizarDispositivo: actualizarDispositivo, @Req() req: any): Promise<Dispositivo> {
+        return this.dispositivoService.actualizar(id, actualizarDispositivo, req);
     }
 
     @Delete(':id')

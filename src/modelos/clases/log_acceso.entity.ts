@@ -12,9 +12,10 @@ export class LogAcceso {
 
   @ManyToOne(() => Usuario, usuario => usuario.id_usuario)
   @JoinColumn({ name: 'id_usuario' })
+  @Column({ nullable: true })
   id_usuario: Usuario;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text' }) 
   ip_privada: string;
 
   @Column({ type: 'text' })

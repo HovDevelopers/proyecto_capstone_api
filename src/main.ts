@@ -18,8 +18,8 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle("Api Psiquiatría Hospital Ovalle")
-    .setDescription("Todos los endpoint del sistema de psiquiatria")
-    .setVersion("2.0")
+    .setDescription("Endpoints del sistema de psiquiatria")
+    .setVersion("3.0")
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);

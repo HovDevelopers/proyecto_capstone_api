@@ -3,7 +3,6 @@ import { Diagnostico } from "../clases/diagnostico.entity";
 import { Dispositivo } from "../clases/dispositivo.entity";
 import { EstadoInforme } from "../clases/estado_informe.entity";
 import { Factores } from "../clases/factores.entity";
-import { Paciente } from "../clases/paciente.entity";
 import { ProcedenciaConsulta } from "../clases/procedencia_consulta.entity";
 import { Procedimiento } from "../clases/procedimiento.entity";
 import { Test } from "../clases/test.entity";
@@ -27,6 +26,7 @@ export interface crearInformeDiario {
   diagnosticos_secundarios?: string;
   otro_diagnostico?: string;
   otro_procedimiento?: string;
+  cronico: boolean;
 }
 
 export interface actualizarInformeDiario {
@@ -46,4 +46,5 @@ export interface actualizarInformeDiario {
   diagnosticos_secundarios?: string;
   otro_diagnostico?: string;
   otro_procedimiento?: string;
+  cronico?: boolean;
 }

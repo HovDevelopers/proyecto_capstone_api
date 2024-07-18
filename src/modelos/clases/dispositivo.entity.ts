@@ -9,5 +9,6 @@ export class Dispositivo {
   @Column({ type: 'text'})
   nombre: string;
 
-  
+  @Column({ type: 'boolean'})
+  estado: boolean;  
 }

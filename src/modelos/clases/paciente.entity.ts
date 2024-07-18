@@ -38,4 +38,7 @@ export class Paciente {
 
   @Column({ type: 'text', nullable: true})
   genero: string;
+
+  @Column({ type: 'boolean' })
+  prais: boolean;
 }

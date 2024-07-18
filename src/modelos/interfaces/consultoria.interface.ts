@@ -1,4 +1,3 @@
-import { Paciente } from 'src/modelos/clases/paciente.entity';
 import { Dispositivo } from 'src/modelos/clases/dispositivo.entity';
 import { EstadoInforme } from '../clases/estado_informe.entity';
 import { Diagnostico } from '../clases/diagnostico.entity';

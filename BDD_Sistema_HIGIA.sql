@@ -90,7 +90,8 @@ CREATE TABLE paciente (
     apellido_materno TEXT,
     prevision TEXT NOT NULL,
     sexo TEXT NOT NULL,
-    genero TEXT
+    genero TEXT,
+	prais boolean NOT NULL
 );
 
 CREATE TABLE paciente_auditoria (
@@ -109,6 +110,7 @@ CREATE TABLE paciente_auditoria (
     sexo TEXT NOT NULL,
     genero TEXT,
     fecha_modificacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	prais boolean NOT NULL,
     FOREIGN KEY (id_paciente) REFERENCES paciente(id_paciente),
 	FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
@@ -116,7 +118,7 @@ CREATE TABLE paciente_auditoria (
 CREATE TABLE log_acceso (
   id_log_acceso INT AUTO_INCREMENT PRIMARY KEY,
   fecha_registro TIMESTAMP NOT NULL,
-  id_usuario INT NOT NULL,
+  id_usuario INT,
   ip_privada TEXT NOT NULL,
   ip_publica TEXT NOT NULL,
   informacion_dispositivo TEXT NOT NULL,
@@ -399,7 +401,7 @@ VALUES ('20091616-6', 'Manuel', 'Segovia', 'Araya', 'manuel.segovia@redsalud.gob
 
 INSERT INTO usuario (id_profesional, fecha_creacion, nombre_usuario, clave, id_rol, id_estado_usuario)
 VALUES (1, NOW(), '20091616-6', '$2y$10$mc5IST2jxMg0qe6QZ2G0Te/WfugLix96Ip76LBOx96Ezmi9UPEZse', 1, 1);
-
+select * from log_acceso;
 -- Inserts Modulos sueltos
 INSERT INTO dispositivo (nombre, estado) VALUES
 ('CAE', true),
@@ -451,7 +453,7 @@ INSERT INTO diagnostico (nombre, bool_GES) VALUES
 ('Maltrato Infantil', false),
 ('PRAIS - 1° Consulta', false),
 ('PRAIS - Tratamiento Mensual', false),
-('Otros Transtornos', false),
+('Otros', false),
 ('Sin diagnóstico', false);
 
 -- Inserts Modulos Actividades

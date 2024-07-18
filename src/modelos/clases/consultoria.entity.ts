@@ -54,4 +54,5 @@ export class Consultoria {
 
   @Column({ type: 'text', nullable: true })
   otro_diagnostico: string;
+
 }

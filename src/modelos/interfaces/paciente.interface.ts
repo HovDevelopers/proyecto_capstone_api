@@ -10,6 +10,7 @@ export interface crearPaciente {
     prevision: string;
     sexo: string;
     genero?: string;
+    prais: boolean;
   }
   
   export interface actualizarPaciente {
@@ -24,5 +25,6 @@ export interface crearPaciente {
     prevision?: string;
     sexo?: string;
     genero?: string;
+    prais?: boolean;
   }
   

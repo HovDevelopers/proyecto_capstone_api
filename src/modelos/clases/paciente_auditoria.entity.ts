@@ -50,4 +50,7 @@ export class PacienteAuditoria {
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   fecha_modificacion: Date;
+
+  @Column({ type: 'boolean' })
+  prais: boolean;
 }

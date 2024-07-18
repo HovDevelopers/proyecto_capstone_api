@@ -17,7 +17,7 @@ export class AuthService {
     @InjectRepository(LogAcceso)
     private readonly logAccesoRepository: Repository<LogAcceso>,
   ) {}
-
+ 
   async login({ nombre_usuario, clave }: { nombre_usuario: string, clave: string }, req: any) {
     const usuario = await this.usuarioService.getUsuarioByNombreUsuario(nombre_usuario);
     const logAcceso = new LogAcceso();
