@@ -3,14 +3,21 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { nombre } from '../interfaces/nombre.interface';
 import { Especialidad } from 'src/modelos/clases/especialidad.entity';
 import { Repository } from 'typeorm';
+import { LogActividadService } from './log_actividad.service';
 
 @Injectable()
 export class EspecialidadService {
 
-    constructor(@InjectRepository(Especialidad) private repoEspecialidad: Repository<Especialidad>){}
+    constructor(@InjectRepository(Especialidad) private repoEspecialidad: Repository<Especialidad>,
+    private readonly logActividadService: LogActividadService,){}
 
-    async crearEspecialidad(nombreEspecialidad: nombre){
+    async crearEspecialidad(nombreEspecialidad: nombre, req:any){
         const especialidadNueva = this.repoEspecialidad.create(nombreEspecialidad);
+        await this.logActividadService.insertarActividad(
+            req,
+            'Inserción Especialidad',
+            nombreEspecialidad
+        );
         return await this.repoEspecialidad.save(especialidadNueva);
     }
 

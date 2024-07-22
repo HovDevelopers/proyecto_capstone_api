@@ -26,8 +26,8 @@ export class ConsultoriaController {
     }
 
     @Patch(':id')
-    async actualizarConsultoria(@Param('id') id: number, @Body() actualizarConsultoria: actualizarConsultoria): Promise<Consultoria> {
-        return await this.consultoriaService.actualizar(id, actualizarConsultoria);
+    async actualizarConsultoria(@Param('id') id: number, @Body() actualizarConsultoria: actualizarConsultoria, @Req() req: any): Promise<Consultoria> {
+        return await this.consultoriaService.actualizar(id, actualizarConsultoria, req);
     }
 
     @Delete(':id')

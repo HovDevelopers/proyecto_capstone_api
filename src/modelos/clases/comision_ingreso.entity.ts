@@ -3,8 +3,6 @@ import { EstadoInforme } from './estado_informe.entity';
 import { Dispositivo } from 'src/modelos/clases/dispositivo.entity';
 import { ProcedenciaComisionIngreso } from 'src/modelos/clases/procedencia_comision_ingreso.entity';
 import { Actividad } from 'src/modelos/clases/actividad.entity';
-import { TipoPaciente } from 'src/modelos/clases/tipo_paciente.entity';
-import { Factores } from 'src/modelos/clases/factores.entity';
 import { ProcedenciaConsultaNuevo } from './procedencia_consulta_nuevo.entity';
 import { Diagnostico } from './diagnostico.entity';
 import { PacienteAuditoria } from './paciente_auditoria.entity';
@@ -36,13 +34,11 @@ export class ComisionIngreso {
   @JoinColumn({ name: 'id_actividad' })
   id_actividad: Actividad;
 
-  @ManyToOne(() => TipoPaciente, tipoPaciente => tipoPaciente.id_tipo_paciente)
-  @JoinColumn({ name: 'id_tipo_paciente' })
-  id_tipo_paciente: TipoPaciente;
+  @Column({ type: 'text'})
+  id_tipo_paciente: string;
 
-  @ManyToOne(() => Factores, factores => factores.id_factor)
-  @JoinColumn({ name: 'id_factor' })
-  id_factor: Factores;
+  @Column({ type: 'text'})
+  id_factor: string;
 
   @ManyToOne(() => EstadoInforme, estadoInforme => estadoInforme.id_estado_informe)
   @JoinColumn({ name: 'id_estado_informe' })

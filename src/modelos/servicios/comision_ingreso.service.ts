@@ -34,23 +34,35 @@ export class ComisionIngresoService {
 
     async buscarTodo(): Promise<ComisionIngreso[]> {
         return await this.repoComisionIngreso.find({ relations: ['id_paciente_auditoria', 'id_dispositivo', 'id_procedencia',
-                                                 'id_actividad', 'id_tipo_paciente', 'id_factor', 
-                                                 'id_estado_informe', 'id_procedencia_nuevo', 'diagnostico_principal'] });
+                                                 'id_actividad', 'id_estado_informe', 'id_procedencia_nuevo', 'diagnostico_principal'] });
     }
 
     async getComisionIngresoById(id: number): Promise<ComisionIngreso | undefined> {
         return await this.repoComisionIngreso.findOne({ where: { id_comision_ingreso: id }, relations: ['id_paciente_auditoria', 
-                                                    'id_dispositivo', 'id_procedencia','id_actividad', 'id_tipo_paciente',
-                                                    'id_factor', 'id_estado_informe', 'id_procedencia_nuevo', 'diagnostico_principal'] });
+                                                    'id_dispositivo', 'id_procedencia','id_actividad', 'id_estado_informe', 
+                                                    'id_procedencia_nuevo', 'diagnostico_principal'] });
     }
 
-    async actualizar(id: number, actualizarComisionIngreso: actualizarComisionIngreso): Promise<ComisionIngreso> {
+    async actualizar(id: number, actualizarComisionIngreso: actualizarComisionIngreso, req:any): Promise<ComisionIngreso> {
         const comisionIngreso = await this.repoComisionIngreso.findOne({ where: { id_comision_ingreso: id } });
         if (!comisionIngreso) {
             return null;
         }
+
+        // Clonar el objeto para guardar la información antigua
+        const comisionAUX = JSON.parse(JSON.stringify(comisionIngreso));
+
         Object.assign(comisionIngreso, actualizarComisionIngreso);
-        return await this.repoComisionIngreso.save(comisionIngreso);
+        const comisionGuardado = await this.repoComisionIngreso.save(comisionIngreso);
+
+        await this.logActividadService.modificarActividad(
+            req,
+            'Actualización Comision Ingreso',
+            comisionAUX,
+            actualizarComisionIngreso
+        );
+
+        return comisionGuardado;
     }
 
     async eliminar(id: number): Promise<void> {

@@ -32,16 +32,16 @@ export class InformeDiarioService {
 
     async buscarTodo(): Promise<InformeDiario[]> {
         return await this.repoInformeDiario.find({ relations: ['id_paciente_auditoria', 'id_dispositivo', 'id_procedencia',
-                                                 'id_actividad', 'id_tipo_paciente', 'id_visita_salud_mental', 
-                                                 'id_procedimiento', 'id_factor', 'id_test', 'id_estado_informe',
+                                                 'id_actividad', 'id_visita_salud_mental', 
+                                                 'id_procedimiento', 'id_test', 'id_estado_informe',
                                                  'diagnostico_principal'] });
     }
 
     async getInformeDiarioById(id: number): Promise<InformeDiario | undefined> {
         return await this.repoInformeDiario.findOne({ where: { id_informe_diario: id }, relations: ['id_paciente_auditoria', 
                                                     'id_dispositivo', 'id_procedencia','id_actividad', 
-                                                    'id_tipo_paciente', 'id_visita_salud_mental', 
-                                                    'id_procedimiento', 'id_factor', 'id_test', 'id_estado_informe',
+                                                    'id_visita_salud_mental', 
+                                                    'id_procedimiento', 'id_test', 'id_estado_informe',
                                                     'diagnostico_principal'] });
     }
 
@@ -106,13 +106,26 @@ export class InformeDiarioService {
     }
     
 
-    async actualizar(id: number, actualizarInformeDiario: actualizarInformeDiario): Promise<InformeDiario> {
+    async actualizar(id: number, actualizarInformeDiario: actualizarInformeDiario, req:any): Promise<InformeDiario> {
         const informeDiario = await this.repoInformeDiario.findOne({ where: { id_informe_diario: id } });
         if (!informeDiario) {
             return null;
         }
+
+        // Clonar el objeto para guardar la información antigua
+        const informeAUX = JSON.parse(JSON.stringify(informeDiario));
+
         Object.assign(informeDiario, actualizarInformeDiario);
-        return await this.repoInformeDiario.save(informeDiario);
+        const informeGuardado = await this.repoInformeDiario.save(informeDiario);
+
+        await this.logActividadService.modificarActividad(
+            req,
+            'Actualización Informe Diario',
+            informeAUX,
+            actualizarInformeDiario
+        );
+
+        return informeGuardado;
     }
 
     async eliminar(id: number): Promise<void> {

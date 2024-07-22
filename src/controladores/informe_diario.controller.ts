@@ -32,8 +32,8 @@ export class InformeDiarioController {
     }
 
     @Patch(':id')
-    async actualizarInformeDiario(@Param('id') id: number, @Body() actualizarInformeDiario: actualizarInformeDiario): Promise<InformeDiario> {
-        return await this.informeDiarioService.actualizar(id, actualizarInformeDiario);
+    async actualizarInformeDiario(@Param('id') id: number, @Body() actualizarInformeDiario: actualizarInformeDiario, @Req() req: any): Promise<InformeDiario> {
+        return await this.informeDiarioService.actualizar(id, actualizarInformeDiario, req);
     }
 
     @Delete(':id')

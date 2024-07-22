@@ -33,24 +33,36 @@ export class UrgenciaService {
 
     async buscarTodo(): Promise<Urgencia[]> {
         return await this.repoUrgencia.find({ relations: ['id_paciente_auditoria', 'id_dispositivo', 'id_procedencia',
-                                            'id_actividad', 'id_tipo_paciente', 'id_factor', 
+                                            'id_actividad',
                                             'id_estado_informe', 'diagnostico_principal'] });
     }
 
     async getUrgenciaById(id: number): Promise<Urgencia | undefined> {
         return await this.repoUrgencia.findOne({ where: { id_urgencia: id }, relations: ['id_paciente_auditoria', 
                                                 'id_dispositivo', 'id_procedencia', 'id_actividad', 
-                                                'id_tipo_paciente', 'id_factor', 'id_estado_informe',
-                                                'diagnostico_principal']});
+                                                 'id_estado_informe', 'diagnostico_principal']});
     }
 
-    async actualizar(id: number, actualizarUrgencia: actualizarUrgencia): Promise<Urgencia> {
+    async actualizar(id: number, actualizarUrgencia: actualizarUrgencia, req:any): Promise<Urgencia> {
         const urgencia = await this.repoUrgencia.findOne({ where: { id_urgencia: id } });
         if (!urgencia) {
             return null;
         }
+
+        // Clonar el objeto para guardar la información antigua
+        const urgenciaAUX = JSON.parse(JSON.stringify(urgencia));
+
         Object.assign(urgencia, actualizarUrgencia);
-        return await this.repoUrgencia.save(urgencia);
+        const urgenciaGuardado = await this.repoUrgencia.save(urgencia);
+
+        await this.logActividadService.modificarActividad(
+            req,
+            'Actualización Urgencia',
+            urgenciaAUX,
+            actualizarUrgencia
+        );
+
+        return urgenciaGuardado;
     }
 
     async eliminar(id: number): Promise<void> {

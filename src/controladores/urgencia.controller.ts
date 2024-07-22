@@ -26,8 +26,8 @@ export class UrgenciaController {
     }
 
     @Patch(':id')
-    async actualizarUrgencia(@Param('id') id: number, @Body() actualizarUrgencia: actualizarUrgencia): Promise<Urgencia> {
-        return await this.urgenciaService.actualizar(id, actualizarUrgencia);
+    async actualizarUrgencia(@Param('id') id: number, @Body() actualizarUrgencia: actualizarUrgencia, @Req() req: any): Promise<Urgencia> {
+        return await this.urgenciaService.actualizar(id, actualizarUrgencia, req);
     }
 
     @Delete(':id')

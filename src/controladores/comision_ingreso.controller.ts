@@ -26,8 +26,8 @@ export class ComisionIngresoController {
     }
 
     @Patch(':id')
-    async actualizarComisionIngreso(@Param('id') id: number, @Body() actualizarComisionIngreso: actualizarComisionIngreso): Promise<ComisionIngreso> {
-        return await this.comisionIngresoService.actualizar(id, actualizarComisionIngreso);
+    async actualizarComisionIngreso(@Param('id') id: number, @Body() actualizarComisionIngreso: actualizarComisionIngreso, @Req() req: any): Promise<ComisionIngreso> {
+        return await this.comisionIngresoService.actualizar(id, actualizarComisionIngreso, req);
     }
 
     @Delete(':id')

@@ -3,11 +3,11 @@ import { join } from 'path';
 
 export const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'mysql',
-  host: '10.67.119.186',
+  host: 'localhost',
   port: 3306,
   username: 'root',
-  password: 'Cb7A506a',
-  database: 'higia',
+  password: 'root',
+  database: 'sistemahospital',
   entities: [join(__dirname, '/../**/*.entity{.ts,.js}')],
   synchronize: false,
 };

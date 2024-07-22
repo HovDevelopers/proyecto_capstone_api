@@ -30,8 +30,8 @@ export class PacientesActividadGrupalController {
     }
 
     @Patch(':id')
-    async actualizarActividadGrupal(@Param('id') id: number, @Body() actualizarPacientesActividadGrupal: actualizarPacientesActividadGrupal): Promise<PacientesActividadGrupal> {
-        return await this.pacientesActividadGrupalService.actualizar(id, actualizarPacientesActividadGrupal);
+    async actualizarActividadGrupal(@Param('id') id: number, @Body() actualizarPacientesActividadGrupal: actualizarPacientesActividadGrupal, @Req() req: any): Promise<PacientesActividadGrupal> {
+        return await this.pacientesActividadGrupalService.actualizar(id, actualizarPacientesActividadGrupal, req);
     }
 
     @Delete(':id')

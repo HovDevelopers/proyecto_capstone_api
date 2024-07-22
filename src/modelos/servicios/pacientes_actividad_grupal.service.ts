@@ -35,6 +35,7 @@ export class PacientesActividadGrupalService {
         return await this.repoPacientesActividadGrupal.find({ 
             relations: ['id_actividad_grupal',
             'id_actividad_grupal.id_actividad',
+            'id_actividad_grupal.id_dispositivo',
             'paciente']
          });
     }
@@ -53,13 +54,26 @@ export class PacientesActividadGrupalService {
         });
     }
 
-    async actualizar(id: number, actualizarActividadGrupal: actualizarPacientesActividadGrupal): Promise<PacientesActividadGrupal> {
+    async actualizar(id: number, actualizarPacientesActividadGrupal: actualizarPacientesActividadGrupal, req:any): Promise<PacientesActividadGrupal> {
         const pacientesActividadGrupal = await this.repoPacientesActividadGrupal.findOne({ where: { id_paciente_actividad_grupal: id } });
         if (!pacientesActividadGrupal) {
             return null;
         }
-        Object.assign(pacientesActividadGrupal, actualizarActividadGrupal);
-        return await this.repoPacientesActividadGrupal.save(pacientesActividadGrupal);
+
+        // Clonar el objeto para guardar la información antigua
+        const pacientesActividadGrupalAUX = JSON.parse(JSON.stringify(pacientesActividadGrupal));
+
+        Object.assign(pacientesActividadGrupal, actualizarPacientesActividadGrupal);
+        const actividadPacGrupalGuardado = await this.repoPacientesActividadGrupal.save(pacientesActividadGrupal);
+
+        await this.logActividadService.modificarActividad(
+            req,
+            'Actualización Pacientes Actividad Grupal',
+            pacientesActividadGrupalAUX,
+            actualizarPacientesActividadGrupal
+        );
+
+        return actividadPacGrupalGuardado;
     }
 
     async eliminar(id: number): Promise<void> {

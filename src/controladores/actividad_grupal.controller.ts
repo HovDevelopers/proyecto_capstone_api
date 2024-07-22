@@ -26,8 +26,8 @@ export class ActividadGrupalController {
     }
 
     @Patch(':id')
-    async actualizarActividadGrupal(@Param('id') id: number, @Body() actualizarActividadGrupal: actualizarActividadGrupal): Promise<ActividadGrupal> {
-        return await this.actividadGrupalService.actualizar(id, actualizarActividadGrupal);
+    async actualizarActividadGrupal(@Param('id') id: number, @Body() actualizarActividadGrupal: actualizarActividadGrupal, @Req() req: any): Promise<ActividadGrupal> {
+        return await this.actividadGrupalService.actualizar(id, actualizarActividadGrupal, req);
     }
 
     @Delete(':id')

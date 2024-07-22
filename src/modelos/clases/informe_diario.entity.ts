@@ -3,10 +3,8 @@ import { EstadoInforme } from './estado_informe.entity';
 import { Dispositivo } from 'src/modelos/clases/dispositivo.entity';
 import { ProcedenciaConsulta } from 'src/modelos/clases/procedencia_consulta.entity';
 import { Actividad } from 'src/modelos/clases/actividad.entity';
-import { TipoPaciente } from 'src/modelos/clases/tipo_paciente.entity';
 import { VisitaSaludMental } from 'src/modelos/clases/visita_salud_mental.entity';
 import { Procedimiento } from 'src/modelos/clases/procedimiento.entity';
-import { Factores } from 'src/modelos/clases/factores.entity';
 import { Test } from 'src/modelos/clases/test.entity';
 import { Diagnostico } from './diagnostico.entity';
 import { PacienteAuditoria } from './paciente_auditoria.entity';
@@ -38,9 +36,8 @@ export class InformeDiario {
   @JoinColumn({ name: 'id_actividad' })
   id_actividad: Actividad;
 
-  @ManyToOne(() => TipoPaciente, tipoPaciente => tipoPaciente.id_tipo_paciente)
-  @JoinColumn({ name: 'id_tipo_paciente' })
-  id_tipo_paciente: TipoPaciente;
+  @Column({ type: 'text'})
+  id_tipo_paciente: string;
 
   @ManyToOne(() => VisitaSaludMental, visitaSaludMental => visitaSaludMental.id_visita_salud_mental)
   @JoinColumn({ name: 'id_visita_salud_mental' })
@@ -50,9 +47,8 @@ export class InformeDiario {
   @JoinColumn({ name: 'id_procedimiento' })
   id_procedimiento: Procedimiento;
 
-  @ManyToOne(() => Factores, factores => factores.id_factor)
-  @JoinColumn({ name: 'id_factor' })
-  id_factor: Factores;
+  @Column({ type: 'text'})
+  id_factor: string;
 
   @ManyToOne(() => Test, test => test.id_test)
   @JoinColumn({ name: 'id_test' })
@@ -67,7 +63,7 @@ export class InformeDiario {
   diagnostico_principal: Diagnostico;
 
   @Column({ type: 'text' })
-  diagnosticos_secundarios: string;
+  diagnosticos_secundarios: string; 
 
   @Column({ type: 'text', nullable: true })
   otro_diagnostico: string;

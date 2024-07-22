@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { EstadoInforme } from './estado_informe.entity';
 import { TipoActividadesGrupales } from './tipo_actividades_grupales.entity';
+import { Dispositivo } from './dispositivo.entity';
 
 @Entity('actividad_grupal')
 export class ActividadGrupal {
@@ -9,6 +10,10 @@ export class ActividadGrupal {
 
   @Column({ type: 'timestamp' })
   fecha_envio: Date;
+
+  @ManyToOne(() => Dispositivo, dispositivo => dispositivo.id_dispositivo)
+  @JoinColumn({ name: 'id_dispositivo' })
+  id_dispositivo: Dispositivo;
 
   @Column({ type: 'date' })
   fecha_consulta: Date;

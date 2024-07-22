@@ -42,13 +42,26 @@ export class ConsultoriaService {
                                                 'id_dispositivo', 'id_estado_informe','diagnostico_principal'] });
     }
 
-    async actualizar(id: number, actualizarConsultoria: actualizarConsultoria): Promise<Consultoria> {
+    async actualizar(id: number, actualizarConsultoria: actualizarConsultoria, req: any): Promise<Consultoria> {
         const consultoria = await this.repoConsultoria.findOne({ where: { id_consultoria: id } });
         if (!consultoria) {
             return null;
         }
+
+        // Clonar el objeto para guardar la información antigua
+        const consultoriaAUX = JSON.parse(JSON.stringify(consultoria));
+
         Object.assign(consultoria, actualizarConsultoria);
-        return await this.repoConsultoria.save(consultoria);
+        const consultoriaGuardado = await this.repoConsultoria.save(consultoria);
+
+        await this.logActividadService.modificarActividad(
+            req,
+            'Actualización Consultoria',
+            consultoriaAUX,
+            actualizarConsultoria
+        );
+
+        return consultoriaGuardado;
     }
 
     async eliminar(id: number): Promise<void> {

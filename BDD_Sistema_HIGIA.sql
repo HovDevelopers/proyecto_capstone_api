@@ -220,10 +220,10 @@ CREATE TABLE informe_diario (
   id_dispositivo INT NOT NULL,
   id_procedencia_consulta INT NOT NULL,
   id_actividad INT NOT NULL,
-  id_tipo_paciente INT NOT NULL,
+  id_tipo_paciente TEXT NOT NULL,
   id_visita_salud_mental INT,
   id_procedimiento INT,
-  id_factor INT NOT NULL,
+  id_factor TEXT NOT NULL,
   id_test INT,
   id_estado_informe INT NOT NULL,
   diagnostico_principal INT NOT NULL,
@@ -235,10 +235,8 @@ CREATE TABLE informe_diario (
   FOREIGN KEY (id_dispositivo) REFERENCES dispositivo(id_dispositivo),
   FOREIGN KEY (id_procedencia_consulta) REFERENCES procedencia_consulta(id_procedencia_consulta),
   FOREIGN KEY (id_actividad) REFERENCES actividad(id_actividad),
-  FOREIGN KEY (id_tipo_paciente) REFERENCES tipo_paciente(id_tipo_paciente),
   FOREIGN KEY (id_visita_salud_mental) REFERENCES visita_salud_mental(id_visita_salud_mental),
   FOREIGN KEY (id_procedimiento) REFERENCES procedimiento(id_procedimiento),
-  FOREIGN KEY (id_factor) REFERENCES factores(id_factor),
   FOREIGN KEY (id_test) REFERENCES test(id_test),
   FOREIGN KEY (id_estado_informe) REFERENCES estado_informe(id_estado_informe),
   FOREIGN KEY (diagnostico_principal) REFERENCES diagnostico(id_diagnostico)
@@ -275,8 +273,8 @@ CREATE TABLE urgencia (
   id_dispositivo INT NOT NULL,
   id_procedencia_consulta INT NOT NULL,
   id_actividad INT NOT NULL,
-  id_tipo_paciente INT NOT NULL,
-  id_factor INT NOT NULL,
+  id_tipo_paciente TEXT NOT NULL,
+  id_factor TEXT NOT NULL,
   id_estado_informe INT NOT NULL,
   diagnostico_principal INT NOT NULL,
   diagnosticos_secundarios TEXT NOT NULL,
@@ -285,8 +283,6 @@ CREATE TABLE urgencia (
   FOREIGN KEY (id_dispositivo) REFERENCES dispositivo(id_dispositivo),
   FOREIGN KEY (id_procedencia_consulta) REFERENCES procedencia_consulta(id_procedencia_consulta),
   FOREIGN KEY (id_actividad) REFERENCES actividad(id_actividad),
-  FOREIGN KEY (id_tipo_paciente) REFERENCES tipo_paciente(id_tipo_paciente),
-  FOREIGN KEY (id_factor) REFERENCES factores(id_factor),
   FOREIGN KEY (id_estado_informe) REFERENCES estado_informe(id_estado_informe),
   FOREIGN KEY (diagnostico_principal) REFERENCES diagnostico(id_diagnostico)
 );
@@ -299,8 +295,8 @@ CREATE TABLE comision_ingreso (
   id_dispositivo INT NOT NULL,
   id_procedencia_comision_ingreso INT NOT NULL,
   id_actividad INT NOT NULL,
-  id_tipo_paciente INT NOT NULL,
-  id_factor INT NOT NULL,
+  id_tipo_paciente TEXT NOT NULL,
+  id_factor TEXT NOT NULL,
   id_estado_informe INT NOT NULL,
   id_procedencia_nuevo INT NOT NULL,
   diagnostico_principal INT NOT NULL,
@@ -310,8 +306,6 @@ CREATE TABLE comision_ingreso (
   FOREIGN KEY (id_dispositivo) REFERENCES dispositivo(id_dispositivo),
   FOREIGN KEY (id_procedencia_comision_ingreso) REFERENCES procedencia_comision_ingreso(id_procedencia_comision_ingreso),
   FOREIGN KEY (id_actividad) REFERENCES actividad(id_actividad),
-  FOREIGN KEY (id_tipo_paciente) REFERENCES tipo_paciente(id_tipo_paciente),
-  FOREIGN KEY (id_factor) REFERENCES factores(id_factor),
   FOREIGN KEY (id_estado_informe) REFERENCES estado_informe(id_estado_informe),
   FOREIGN KEY (id_procedencia_nuevo) REFERENCES procedencia_consulta_nuevo(id_procedencia_nuevo),
   FOREIGN KEY (diagnostico_principal) REFERENCES diagnostico(id_diagnostico)
@@ -321,12 +315,14 @@ CREATE TABLE actividad_grupal (
   id_actividad_grupal INT AUTO_INCREMENT PRIMARY KEY,
   fecha_envio TIMESTAMP NOT NULL,
   fecha_consulta DATE NOT NULL,
+  id_dispositivo INT NOT NULL,
   id_actividad INT NOT NULL,
   presentes INT,
   otra_actividad TEXT,
   hora_inicio TIME NOT NULL,
   hora_termino TIME NOT NULL,
   id_estado_informe INT NOT NULL,
+  FOREIGN KEY (id_dispositivo) REFERENCES dispositivo(id_dispositivo),
   FOREIGN KEY (id_actividad) REFERENCES actividad(id_actividad),
   FOREIGN KEY (id_estado_informe) REFERENCES estado_informe(id_estado_informe)
 );
@@ -530,7 +526,8 @@ INSERT INTO test (nombre) VALUES
 -- Inserts Modulos informes
 INSERT INTO estado_informe (nombre) VALUES
 ('Creado'),
-('Finalizado');
+('Finalizado'),
+('Borrador');
 
 
 

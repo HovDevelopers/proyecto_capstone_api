@@ -27,6 +27,7 @@ export class ActividadGrupalProfesionalService {
         return await this.repoActividadGrupalProfesional.find({ 
             relations: ['id_actividad_grupal',
             'id_actividad_grupal.id_actividad',
+            'id_actividad_grupal.id_dispositivo',
             'profesional', 
             'profesional.id_especialidad'],
          });
@@ -37,6 +38,7 @@ export class ActividadGrupalProfesionalService {
           where: { profesional: { id_profesional: id } },
           relations: ['id_actividad_grupal',
           'id_actividad_grupal.id_actividad',
+          'id_actividad_grupal.id_dispositivo',
           'profesional', 
           'profesional.id_especialidad'],
         });
@@ -46,6 +48,7 @@ export class ActividadGrupalProfesionalService {
         return await this.repoActividadGrupalProfesional.findOne({ where: { id_actividad_grupal_profesional: id }, 
             relations: ['id_actividad_grupal',
             'id_actividad_grupal.id_actividad',
+            'id_actividad_grupal.id_dispositivo',
             'profesional', 
             'profesional.id_especialidad'], });
     }
