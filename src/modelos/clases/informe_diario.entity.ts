@@ -71,6 +71,9 @@ export class InformeDiario {
   @Column({ type: 'text', nullable: true })
   otro_procedimiento: string;
 
+  @Column({ type: 'text', nullable: true })
+  otros_test: string;
+
   @Column({ type: 'boolean' })
   cronico: boolean;
 }

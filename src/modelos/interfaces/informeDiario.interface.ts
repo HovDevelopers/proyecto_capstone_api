@@ -24,6 +24,7 @@ export interface crearInformeDiario {
   diagnosticos_secundarios?: string;
   otro_diagnostico?: string;
   otro_procedimiento?: string;
+  otro_test?: string;
   cronico: boolean;
 }
 
@@ -44,5 +45,6 @@ export interface actualizarInformeDiario {
   diagnosticos_secundarios?: string;
   otro_diagnostico?: string;
   otro_procedimiento?: string;
+  otro_test?: string;
   cronico?: boolean;
 }

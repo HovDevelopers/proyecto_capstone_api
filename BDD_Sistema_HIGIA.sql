@@ -230,6 +230,7 @@ CREATE TABLE informe_diario (
   diagnosticos_secundarios TEXT NOT NULL,
   otro_diagnostico TEXT,
   otro_procedimiento TEXT,
+  otro_test TEXT,
   cronico boolean NOT NULL,
   FOREIGN KEY (id_paciente_auditoria) REFERENCES paciente_auditoria(id_paciente_auditoria),
   FOREIGN KEY (id_dispositivo) REFERENCES dispositivo(id_dispositivo),
@@ -406,7 +407,9 @@ INSERT INTO dispositivo (nombre, estado) VALUES
 
 INSERT INTO procedencia_consulta (nombre) VALUES
 ('Control'),
-('Alta'),
+('Alta clínica'),
+('Alta por abandono'),
+('Alta por fallecimiento'),
 ('No se presentó');
 
 INSERT INTO procedencia_comision_ingreso (nombre) VALUES
@@ -465,7 +468,8 @@ INSERT INTO actividad (nombre) VALUES
 ('Informes a Policia Local'),-- esta bloquea visita, procedimiento y test
 ('Informes a Tribunal laborales'),-- esta bloquea visita, procedimiento y test
 ('Informes a Otros dispositivos'),-- esta bloquea visita, procedimiento y test
-('No se presentó');
+('Evaluación diagnóstica de otros profesionales'),  -- policlinico lo usa
+('Ninguna de las anteriores');
 
 INSERT INTO tipo_actividades_grupales (nombre) VALUES
 ('Intervención Psicosocial Grupal'),
@@ -475,7 +479,7 @@ INSERT INTO tipo_actividades_grupales (nombre) VALUES
 ('Administración'), 
 ('Capacitación a Establecimientos'), 
 ('Docencia'), 
-('Informes a Tribunal penales'), 
+-- ('Informes a Tribunal penales'), 
 ('Reunión Extraordinaria de Equipos'),
 ('Reunión de Coordinación'),
 ('Reunión Masiva'),
@@ -485,7 +489,6 @@ INSERT INTO tipo_paciente (nombre) VALUES
 ('Gestante'),
 ('Sename'),
 ('Migrante'),
-('Visita'),
 ('Madre de hijo menor de 5 años'),
 ('Pueblo originario'),
 ('Demencia'),
@@ -521,6 +524,7 @@ INSERT INTO test (nombre) VALUES
 ('Test de Apercepción Temática, T.A.T., C.A.T.'),
 ('Test de Weschler, WAIS, WISC ó WPPSI'),
 ('Test de Bender Bip'),
+('Otros test'),
 ('Ninguna de las anteriores');
 
 -- Inserts Modulos informes
@@ -528,7 +532,3 @@ INSERT INTO estado_informe (nombre) VALUES
 ('Creado'),
 ('Finalizado'),
 ('Borrador');
-
-
-
-
