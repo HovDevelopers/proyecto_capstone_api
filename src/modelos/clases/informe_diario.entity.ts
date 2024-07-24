@@ -72,7 +72,7 @@ export class InformeDiario {
   otro_procedimiento: string;
 
   @Column({ type: 'text', nullable: true })
-  otros_test: string;
+  otro_test: string;
 
   @Column({ type: 'boolean' })
   cronico: boolean;
