@@ -404,6 +404,7 @@ INSERT INTO dispositivo (nombre, estado) VALUES
 ('CAE', true),
 ('CESAM', true),
 ('Hospital Día', true);
+('Polinfanto', true);
 
 INSERT INTO procedencia_consulta (nombre) VALUES
 ('Control'),
