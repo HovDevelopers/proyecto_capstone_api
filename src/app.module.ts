@@ -28,6 +28,7 @@ import { LogAccesoMiddleware } from './middlewares/logAcceso.middleware';
 import { LogAccesoModule } from './modulos/log_acceso.module';
 import { LogActividadMiddleware } from './middlewares/logActividad.middleware';
 import { LogActividadModule } from './modulos/logActividad.module';
+import { ApiFonasaModule } from './modulos/apiFonasa.module';
 
 @Module({
   imports: [
@@ -36,7 +37,7 @@ import { LogActividadModule } from './modulos/logActividad.module';
     EstadoUsuarioModule, EstadoInformeModule, ActividadModule, FactoresModule, ProcedimientoModule, 
     TestModule, TipoPacienteModule, VisitaSaludMentalModule, DiagnosticoModule, DispositivoModule, 
     ProcedenciaConsultaModule, InformeDiarioModule, AuthModule, UrgenciaModule, ComisionIngresoModule, 
-    ConsultoriaModule, ActividadGrupalModule, LogAccesoModule, LogActividadModule],
+    ConsultoriaModule, ActividadGrupalModule, LogAccesoModule, LogActividadModule, ApiFonasaModule],
   controllers: [],
   providers: [],
 }) 
